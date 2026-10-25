@@ -44,3 +44,35 @@ if (sections.length && "IntersectionObserver" in window) {
   );
   sections.forEach((section) => observer.observe(section));
 }
+
+const hero = document.querySelector(".hero");
+const tilt = document.querySelector(".edition-tilt");
+const canTilt =
+  hero &&
+  tilt &&
+  window.matchMedia("(pointer: fine)").matches &&
+  window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+if (canTilt) {
+  const baseAngle = () => {
+    const style = getComputedStyle(tilt);
+    return {
+      ry: Number.parseFloat(style.getPropertyValue("--ry")) || -16,
+      rx: Number.parseFloat(style.getPropertyValue("--rx")) || 8,
+    };
+  };
+
+  hero.addEventListener("pointermove", (event) => {
+    const bounds = hero.getBoundingClientRect();
+    const px = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const py = (event.clientY - bounds.top) / bounds.height - 0.5;
+    const { ry, rx } = baseAngle();
+    tilt.style.animation = "none";
+    tilt.style.transform = `rotateY(${ry + px * 14}deg) rotateX(${rx - py * 10}deg)`;
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    tilt.style.transform = "";
+    tilt.style.animation = "";
+  });
+}
