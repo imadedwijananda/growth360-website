@@ -1,0 +1,23 @@
+{
+  "name": "growth360-company-profile",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Profil perusahaan statis Growth360 Agency, unit bisnis PT. Solusi Era Digital.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 47321 --strictPort",
+    "build": "vite build && node scripts/check-content.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 47321 --strictPort",
+    "check": "node scripts/check-content.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "vite": "^6.4.5"
+  },
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/outfit": "^5.3.0"
+  }
+}
